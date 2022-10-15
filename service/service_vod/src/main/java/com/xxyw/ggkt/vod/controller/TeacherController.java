@@ -2,6 +2,7 @@ package com.xxyw.ggkt.vod.controller;
 
 
 import com.atguigu.ggkt.model.vod.Teacher;
+import com.xxyw.ggkt.result.Result;
 import com.xxyw.ggkt.vod.service.TeacherService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -30,17 +31,21 @@ public class TeacherController {
 
     // 1. 查询所有讲师
     @GetMapping("findAll")
-    public List<Teacher> findAllTeacher() {
+    public Result findAllTeacher() {
         List<Teacher> list = teacherService.list();
-        return list;
+        return Result.ok(list).message("查询所有讲师成功");
     }
 
     // 2. 逻辑删除讲师
     @ApiOperation("逻辑删除讲师")
     @DeleteMapping("remove/{id}")
-    public boolean deleteTeacher(@ApiParam(name = "id", value = "ID", required = true) @PathVariable("id") Long id) {
+    public Result deleteTeacher(@ApiParam(name = "id", value = "ID", required = true) @PathVariable("id") Long id) {
         boolean res = teacherService.removeById(id);
-        return res;
+        if (res) {
+            return Result.ok(null);
+        } else {
+            return Result.fail(null);
+        }
     }
 
 }
