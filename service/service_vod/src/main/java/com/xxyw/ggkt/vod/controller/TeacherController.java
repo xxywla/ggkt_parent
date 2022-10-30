@@ -5,7 +5,6 @@ import com.atguigu.ggkt.model.vod.Teacher;
 import com.atguigu.ggkt.vo.vod.TeacherQueryVo;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.xxyw.ggkt.exception.GgktException;
 import com.xxyw.ggkt.result.Result;
 import com.xxyw.ggkt.vod.service.TeacherService;
 import io.swagger.annotations.Api;
@@ -39,11 +38,11 @@ public class TeacherController {
     @GetMapping("findAll")
     public Result findAllTeacher() {
 
-        try {
-            int i = 10 / 0;
-        } catch (Exception e) {
-            throw new GgktException(201, "自定义GgktException异常");
-        }
+        //try {
+        //    int i = 10 / 0;
+        //} catch (Exception e) {
+        //    throw new GgktException(201, "自定义GgktException异常");
+        //}
 
         List<Teacher> list = teacherService.list();
         return Result.ok(list).message("查询所有讲师成功");
