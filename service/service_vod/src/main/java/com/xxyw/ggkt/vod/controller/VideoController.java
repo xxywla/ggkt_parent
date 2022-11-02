@@ -51,7 +51,7 @@ public class VideoController {
     // 4. 删除 根据 ID
     @DeleteMapping("remove/{id}")
     public Result remove(@PathVariable Long id) {
-        videoService.removeById(id);
+        videoService.removeVideoById(id);
         return Result.ok(null);
     }
 

@@ -18,4 +18,6 @@ import java.util.List;
 public interface ChapterService extends IService<Chapter> {
 
     List<ChapterVo> getChapterList(Long courseId);
+
+    void removeByCourseId(Long id);
 }

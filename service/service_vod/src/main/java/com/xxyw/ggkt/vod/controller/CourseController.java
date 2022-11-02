@@ -3,6 +3,7 @@ package com.xxyw.ggkt.vod.controller;
 
 import com.atguigu.ggkt.model.vod.Course;
 import com.atguigu.ggkt.vo.vod.CourseFormVo;
+import com.atguigu.ggkt.vo.vod.CoursePublishVo;
 import com.atguigu.ggkt.vo.vod.CourseQueryVo;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xxyw.ggkt.result.Result;
@@ -34,7 +35,7 @@ public class CourseController {
 
         courseService.updateCourseInfo(courseFormVo);
 
-        return Result.ok(null);
+        return Result.ok(courseFormVo.getId());
     }
 
     // 根据 ID 获取课程信息
@@ -63,6 +64,27 @@ public class CourseController {
         Map<String, Object> map = courseService.getCourse(page, courseQueryVo);
 
         return Result.ok(map);
+    }
+
+    // 根据 ID 获取课程发布信息
+    @GetMapping("getCoursePublishVo/{id}")
+    public Result getCoursePublishVo(@PathVariable Long id) {
+        CoursePublishVo courseFormVo = courseService.getCoursePublishVo(id);
+        return Result.ok(courseFormVo);
+    }
+
+    // 根据 ID 发布课程
+    @PutMapping("publishCourseById/{id}")
+    public Result publishCourse(@PathVariable Long id) {
+        courseService.publishCourseById(id);
+        return Result.ok(null);
+    }
+
+    // 根据 ID 删除课程
+    @DeleteMapping("remove/{id}")
+    public Result delete(@PathVariable Long id) {
+        courseService.removeCourseById(id);
+        return Result.ok(null);
     }
 }
 

@@ -6,6 +6,7 @@ import com.atguigu.ggkt.model.vod.CourseDescription;
 import com.atguigu.ggkt.model.vod.Subject;
 import com.atguigu.ggkt.model.vod.Teacher;
 import com.atguigu.ggkt.vo.vod.CourseFormVo;
+import com.atguigu.ggkt.vo.vod.CoursePublishVo;
 import com.atguigu.ggkt.vo.vod.CourseQueryVo;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -13,13 +14,16 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.xxyw.ggkt.vod.mapper.CourseMapper;
 import com.xxyw.ggkt.vod.mapper.SubjectMapper;
 import com.xxyw.ggkt.vod.mapper.TeacherMapper;
+import com.xxyw.ggkt.vod.service.ChapterService;
 import com.xxyw.ggkt.vod.service.CourseDescriptionService;
 import com.xxyw.ggkt.vod.service.CourseService;
+import com.xxyw.ggkt.vod.service.VideoService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,6 +48,12 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 
     @Autowired
     private CourseDescriptionService courseDescriptionService;
+
+    @Autowired
+    private VideoService videoService;
+
+    @Autowired
+    private ChapterService chapterService;
 
     @Override
     public Map<String, Object> getCourse(Page<Course> page, CourseQueryVo courseQueryVo) {
@@ -135,6 +145,34 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         }
 
         return courseFormVo;
+    }
+
+    @Override
+    public CoursePublishVo getCoursePublishVo(Long id) {
+        return baseMapper.selectCoursePublishVo(id);
+    }
+
+    @Override
+    public void publishCourseById(Long id) {
+        Course course = baseMapper.selectById(id);
+        course.setStatus(1);
+        course.setPublishTime(new Date());
+        baseMapper.updateById(course);
+    }
+
+    @Override
+    public void removeCourseById(Long id) {
+        // 删除小节
+        videoService.removeByCourseId(id);
+
+        // 删除章节
+        chapterService.removeByCourseId(id);
+
+        // 删除课程描述
+        courseDescriptionService.removeById(id);
+
+        // 删除课程
+        baseMapper.deleteById(id);
     }
 
     private void getName(Course course) {

@@ -72,4 +72,11 @@ public class ChapterServiceImpl extends ServiceImpl<ChapterMapper, Chapter> impl
 
         return chapterVoList;
     }
+
+    @Override
+    public void removeByCourseId(Long id) {
+        LambdaQueryWrapper<Chapter> lqw = new LambdaQueryWrapper<>();
+        lqw.eq(Chapter::getCourseId, id);
+        baseMapper.delete(lqw);
+    }
 }
