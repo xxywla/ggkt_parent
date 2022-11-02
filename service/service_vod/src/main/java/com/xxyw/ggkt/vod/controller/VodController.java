@@ -11,7 +11,7 @@ import java.util.Random;
 
 @RestController
 @RequestMapping("/admin/vod")
-@CrossOrigin
+//@CrossOrigin
 public class VodController {
 
 

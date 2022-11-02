@@ -1,15 +1,13 @@
-package com.xxyw.ggkt.vod;
+package com.xxyw.ggkt.order;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan("com.xxyw")
 @EnableDiscoveryClient
-public class ServiceVodApplication {
+public class ServiceOrderApplication {
     public static void main(String[] args) {
-        SpringApplication.run(ServiceVodApplication.class, args);
+        SpringApplication.run(ServiceOrderApplication.class, args);
     }
 }

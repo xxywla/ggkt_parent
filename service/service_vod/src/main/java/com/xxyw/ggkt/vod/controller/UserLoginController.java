@@ -8,7 +8,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/admin/vod/user")
-@CrossOrigin
+//@CrossOrigin
 public class UserLoginController {
 
     @PostMapping("login")

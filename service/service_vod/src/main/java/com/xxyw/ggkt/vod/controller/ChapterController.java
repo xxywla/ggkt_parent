@@ -20,7 +20,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(value = "/admin/vod/chapter")
-@CrossOrigin
+//@CrossOrigin
 public class ChapterController {
 
     @Autowired
