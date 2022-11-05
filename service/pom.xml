@@ -16,6 +16,7 @@
         <module>service_order</module>
         <module>service_activity</module>
         <module>service_user</module>
+        <module>service_wechat</module>
     </modules>
 
     <properties>
